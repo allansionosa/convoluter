@@ -1,0 +1,60 @@
+title Convolutional
+
+participant erlangshell as es
+participant convolutional as c
+
+note over c: wait
+
+es -> c: message input
+
+note over c: convert message to binary
+
+c -> c: message to binary conversion
+
+c -> c: length(message)
+
+alt empty
+
+c -> c: get converted message to binary
+c -> c: lists:reverse()
+
+else not empty
+
+c -> c: get binary representation
+
+c -> c: [Message_head|Message_tail] = Message
+c -> c: integer_to_binary(Message_head,2)
+c -> c: complete 8 bits, string:right()
+
+note over c: convert message to binary
+
+end
+
+note over c: correct binary sequence
+
+c -> c: binary correction
+
+c -> c: initilaize value of 1st and 2nd shift register
+c -> c: check length(binary)
+
+alt empty binary
+
+c -> c: get final output
+c -> c: list_to_binary()
+
+c -> es: corrected binary
+
+else not empty
+
+c -> c: get corrected sequence
+
+c -> c: [Binary_head,_Binary_tail] = Binary
+c -> c: Binary_head bxor 2nd shift
+c -> c: Binary_head bxor 1st shift bxor 2nd shift
+c -> c: concat 1st and 2nd output
+
+note over c: correct binary sequence
+
+end
+
+note over c: wait
